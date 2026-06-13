@@ -286,16 +286,39 @@ Run after every completed mode (analyze, build, check) and after PPOV approval (
 
 **MCP connected — branch on `response.after.cta.type`:**
 
-**`"register"` (anonymous):** Ask:
-> "Willst du diesen Fortschritt behalten? / Want to keep this progress?"
+**`"register"` (anonymous):** Show immediately — no question, no gating. Two steps:
 
-Wait for answer.
+**Step A — Render the full character sheet.**
+Output `response.gamification.sheet` as a verbatim code block. Do NOT paraphrase, summarize, or rewrite it. Paste it exactly — character by character, including box-drawing characters (╔ ═ ║ ╠ ╚). Example of correct rendering:
 
-**If yes:**
-> "So funktioniert es:
+```
+╔══════════════════════════════════════════════════════════════╗
+║             ⚔  DEMOSTANCE  CHARACTER  SHEET  ⚔             ║
+╠══════════════════════════════════════════════════════════════╣
+║  The Closer · Lv.5                                           ║
+║  PPOV-Score: ████████░░  59/100  (nächstes Lv.: 60)        ║
+╠══════════════════════════════════════════════════════════════╣
+║  🪙 300/500 Tokens · Ruf: Bekannt = 2.500/Woche            ║
+╠══════════════════════════════════════════════════════════════╣
+║  ⚠ Verliere deinen Fortschritt nicht → demostance.com/signup║
+╚══════════════════════════════════════════════════════════════╝
+```
+
+**Step B — Show registration setup directly below the sheet:**
+> **Verliere deinen Fortschritt nicht.**
+>
+> Du bist **{gamification.character_name} · Lv.{gamification.level}** — PPOV-Score {gamification.estimated_score}/100.
+> Nächstes Level bei {gamification.next_level_score} Punkten.
+>
+> Ohne Konto ist das weg, sobald du dieses Fenster schließt.
+>
+> **Was du mit einem kostenlosen Konto bekommst:**
+> - Charakterbogen bleibt erhalten — Level, Score, PPOV-Verlauf
+> - **Ruf: Bekannt** wird freigeschaltet → 2.500 Tokens/Woche (statt nur Session-Tokens)
+> - PPOV-Bibliothek: deine stärksten Thesen werden gespeichert
 >
 > **Schritt 1 — Registrieren (einmalig):**
-> → **demostance.com/signup** — kostenlos, bekommst eine User-ID (`usr_xxxxxxxx`)
+> → **demostance.com/signup** — kostenlos, 30 Sekunden, bekommst eine User-ID (`usr_xxxxxxxx`)
 >
 > **Schritt 2 — User-ID einmalig speichern:**
 >
@@ -311,15 +334,13 @@ Wait for answer.
 > ```json
 > { "env": { "DEMOSTANCE_USER_ID": "usr_deine-id" } }
 > ```
-> Oder als Shell-Variable (einfacher für Entwickler):
+> Oder als Shell-Variable:
 > ```bash
 > echo 'export DEMOSTANCE_USER_ID=usr_deine-id' >> ~/.zshrc && source ~/.zshrc
 > ```
 >
 > **Schritt 3 — Neu starten.**
-> Ab dann wirst du automatisch erkannt — Charakterbogen, Tokens und PPOV-Score bleiben erhalten."
-
-**If no:** Continue. No further mention.
+> Ab dann wirst du automatisch erkannt — Ruf: Bekannt, 2.500 Tokens/Woche, Charakterbogen bleibt.
 
 **`null` (registered, healthy balance):** Say:
 > "✅ Dein Fortschritt ist gespeichert — du wirst beim nächsten Start automatisch als {gamification.character_name} erkannt."

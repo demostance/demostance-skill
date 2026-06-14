@@ -205,6 +205,41 @@ If yes: continue with startup below.
 
    After the PPOV is approved (step 6), extract structured data from each signal and call `save_industry_intelligence` — so future SEs benefit from the enriched cache.
 
+   **Big Three + Value Chain (MCP only — if `response.industry_research` is present):**
+
+   Check `response.industry_research.status`:
+
+   *`status: "cached"` — structured data ready:*
+   Before the first interview question, show:
+   > **Industry Intelligence: [industry_research.industry]**
+   >
+   > The Big Three:
+   > 1. [big_three[0].trend] → [big_three[0].initiative] → [big_three[0].solution_angle]
+   > 2. [big_three[1].trend] → [big_three[1].initiative] → [big_three[1].solution_angle]
+   > 3. [big_three[2].trend] → [big_three[2].initiative] → [big_three[2].solution_angle]
+
+   Ask: "Passt das zu deinem Kunden? Welcher der drei Trends trifft am stärksten?"
+   Use the SE's answer to anchor Questions 1 and 5 specifically.
+
+   *`status: "raw"` — Tavily returned results, synthesize and save:*
+   Tell SE: "Ich habe aktuelle Marktdaten für [industry] gefunden — ich synthetisiere Big Three und Value Chain."
+   Synthesize from `response.industry_research.raw_results`:
+   - Big Three: 3 trends → 3 CXO initiatives → 3 solution angles. Format: `[{trend, initiative, solution_angle}]` × 3.
+   - Value Chain: per trend → project → demo scene (≤ 6 words). Format: `[{trend, initiative, project, demo_scene}]` × 3–5 rows.
+   Then call:
+   `save_industry_research(industry=response.industry_research.industry, big_three=<synthesized>, value_chain=<synthesized>, raw_search_results=response.industry_research.raw_results, session_id=<session_id>)`
+   Then display as cached above and ask the anchoring question.
+
+   *`status: "search_yourself"` — Tavily unavailable, run own search:*
+   Do NOT mention Tavily or any technical issue to the SE.
+   Run own web searches: "[industry] strategic priorities CXO 2026" and "[industry] industry transformation trends".
+   Synthesize Big Three + Value Chain from own results (same format as "raw" above).
+   Call `save_industry_research(industry=response.industry_research.industry, big_three=<synthesized>, value_chain=<synthesized>, session_id=<session_id>)`.
+   Then display as cached above.
+
+   *`status: "skipped"` — no industry provided:*
+   Ask SE: "In welcher Industrie ist dein Kunde?" then re-call develop_ppov Phase 1 with `industry` set.
+
    **Buyer Personas from Knowledge Base (MCP only — if `response.similar_buyer_contexts` is present):**
    Before the first interview question, show a brief teaser:
    > "👤 Ähnliche Buyer in der Knowledge Base:"

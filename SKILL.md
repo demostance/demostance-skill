@@ -288,17 +288,26 @@ Run after every completed mode (analyze, build, check) and after PPOV approval (
 
 **`"register"` (anonymous):** Show immediately — no question, no gating. Two steps:
 
-**Step A — Render the full character sheet.**
-Output `response.gamification.sheet` as a verbatim code block. Do NOT paraphrase, summarize, or rewrite it. Paste it exactly — character by character, including box-drawing characters (╔ ═ ║ ╠ ╚). Example of correct rendering:
+**Step A — Render the PPOV achievement + character sheet.**
+
+If you have the `ppov_statement` from this session's `develop_ppov` phase 2 (build mode only), show it first as the key achievement the SE would lose without an account:
+> "📌 Dein PPOV dieser Session:
+> *[ppov_statement — paste verbatim, no paraphrasing]*"
+
+Then output `response.gamification.sheet` as a verbatim code block. Do NOT paraphrase, summarize, or rewrite it. Paste it exactly — character by character, including box-drawing characters (╔ ═ ║ ╠ ╚). Example of correct rendering:
 
 ```
 ╔══════════════════════════════════════════════════════════════╗
 ║             ⚔  DEMOSTANCE  CHARACTER  SHEET  ⚔             ║
 ╠══════════════════════════════════════════════════════════════╣
-║  The Closer · Lv.5                                           ║
-║  PPOV-Score: ████████░░  59/100  (nächstes Lv.: 60)        ║
+║  The Closer · Lv.3                                           ║
+║  PPOV-Score: ███░░░░░░░  35/100  (nächstes Lv.: 50)        ║
 ╠══════════════════════════════════════════════════════════════╣
-║  🪙 300/500 Tokens · Ruf: Bekannt = 2.500/Woche            ║
+║  DIESE SESSION                                               ║
+║  Vorher:  The Rookie · Lv.1 · Score 0                      ║
+║  Jetzt:   Lv.3 · Score 35 · +1 PPOV entwickelt            ║
+╠══════════════════════════════════════════════════════════════╣
+║  🪙 350/500 Tokens · Ruf: Bekannt = 2.500/Woche            ║
 ╠══════════════════════════════════════════════════════════════╣
 ║  ⚠ Verliere deinen Fortschritt nicht → demostance.com/signup║
 ╚══════════════════════════════════════════════════════════════╝

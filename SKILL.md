@@ -172,7 +172,13 @@ If yes: continue with startup below.
    - If no → proceed to step 2.
 
 2. Ask what the SE has for context: discovery notes? CRM data? Customer context? Existing ideas?
+   From their answer, explicitly extract:
+   - `industry`: the customer's sector (e.g. "logistics", "fintech", "presales/software tools") — **required for industry research**
+   - `customer_context`: buyer role + situation (e.g. "CFO in a 500-person logistics company who can't see order bottlenecks")
+   - `discovery_notes`: any specific pain points or deal context
+   If the industry is unclear: ask "In welcher Branche ist der Kunde?" before calling any tool.
 3. Call `develop_ppov` with the provided context and empty `interview_answers`.
+   Always pass `industry=<extracted>` and `customer_context=<extracted>` explicitly.
    *(Skill-only: ask the 8 questions directly in conversation)*
 
    **Industry Intelligence (MCP only — if `response.industry_signals` is present):**

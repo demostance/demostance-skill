@@ -181,17 +181,41 @@ If yes: continue with startup below.
    Always pass `industry=<extracted>` and `customer_context=<extracted>` explicitly.
    *(Skill-only: ask the 8 questions directly in conversation)*
 
-   **Industry Intelligence (MCP only — if `response.industry_signals` is present):**
+   **Industry Intelligence (MCP only):**
+
+   Two sources — show the cached version if present, fall back to fresh search otherwise:
+
+   *If `response.cached_industry_signals` is present (enriched, validated data from DB):*
+   Before the first question, show a compact summary:
+   > "🧠 Validierte Industry-Intelligence aus der Knowledge Base:"
+   > For each signal (max 3): "**[source_title]** — Challenges: [first 2 of industry_challenges joined with ' · ']"
+   Then add: "Diese Daten kommen aus bereits analysierten Quellen — ich nutze sie aktiv, um deine Antworten zu schärfen."
+
+   Use `cached_industry_signals` **actively throughout the interview**:
+   - Questions 1–2 (pain, failed attempts): reference known challenges — "Ich sehe, dass [industry] typisch kämpft mit [challenge] — ist das bei euch auch so?"
+   - Questions 4–5 (stakeholder, belief): use `author_role` patterns — "Ähnliche Roles in [industry] nennen oft [perceived_solution] als Lösung — stimmt das bei eurem Buyer?"
+   - Phase 2 PPOV generation: `perceived_solutions` = the legacy approaches your PPOV must challenge. Name them explicitly in the provocation layer.
+
+   *If `response.industry_signals` is present (fresh search results, not yet enriched):*
    Before asking the first question, show the signals to the SE:
    > "📡 Das diskutiert [industry] gerade — ich habe kurz nachgeschaut:"
    > For each signal (max 3): "**[title]** — [snippet]"
-
    Then add one sentence: "Ich nutze das im Hintergrund, um deine Antworten zu schärfen."
    Do NOT ask the SE to read or evaluate the signals — just show them as context and move on.
 
-   After the PPOV is approved (step 6), extract structured data from each signal and call:
-   `save_industry_intelligence(signal_id=X, industry_challenges=[...], project_problems=[...], perceived_solutions=[...], author_role='...', current_project='...')`
-   — for each signal where the content was relevant to the SE's answers. Skip signals that added nothing.
+   After the PPOV is approved (step 6), extract structured data from each signal and call `save_industry_intelligence` — so future SEs benefit from the enriched cache.
+
+   **Buyer Personas from Knowledge Base (MCP only — if `response.similar_buyer_contexts` is present):**
+   Before the first interview question, show a brief teaser:
+   > "👤 Ähnliche Buyer in der Knowledge Base:"
+   > For each persona (max 2, `tier == "rich"` preferred):
+   >   First 2 sentences of `content` + "(ähnliche Rolle, [times_seen]× gesehen)"
+
+   These are real buyer contexts from other SEs. Use them actively throughout:
+   - Questions 1–3 (role, stakes, situation): reference patterns — "Ich sehe ähnliche Buyer haben [X] — stimmt das?"
+   - Phase 2 PPOV generation: shared pain across multiple personas = validated pattern → anchor the provocation there.
+   - `generate_perception_essay`: use the closest matching persona as the starting lens, then adapt to this SE's specific context.
+   Do NOT paste full persona content verbatim — extract patterns and use them as targeted coaching prompts.
 
    The tool returns 8 questions. Ask them **one at a time** — wait for each answer before continuing.
    Question 8 asks for the competitor's PPOV — treat a vague answer ("they also solve X") as insufficient. Push: "Was wäre der provokante Satz, den dein Wettbewerber in der Demo sagen würde — über das Problem des Kunden, nicht über sein Produkt?"

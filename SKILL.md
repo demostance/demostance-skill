@@ -52,17 +52,27 @@ Check whether the DemoStance MCP tools are available in this session by checking
 
 ## Skill-only Mode (no MCP)
 
-When no MCP is connected, skip all tool calls. All coaching happens through conversation only — no gamification, no persistence, no character sheet.
+When no MCP is connected, skip all tool calls. All coaching happens through conversation only — no gamification, no persistence, no character sheet, no knowledge base, no industry research.
 
 **Opening message:**
-> "DemoStance läuft im Skill-only Modus — kein MCP verbunden, kein Charakterbogen, kein Speichern.
-> Du bekommst trotzdem vollständiges Demo-Coaching: PPOV-Entwicklung, Szenenstruktur, Ampel-Check.
+> "DemoStance läuft im Skill-only Modus — kein MCP verbunden.
+> Du bekommst vollständiges Demo-Coaching: PPOV-Entwicklung, Szenenstruktur, Ampel-Check.
 >
-> DemoStance running in skill-only mode — no MCP connected, no character sheet, no persistence.
+> DemoStance running in skill-only mode — no MCP connected.
 > You still get full demo coaching: PPOV development, scene structure, traffic-light review.
 >
-> **→ Für persistentes Profil und Gamification:** MCP verbinden (5 Min.) — siehe `reference/mcp-setup.md`
-> **→ For persistent profile and gamification:** Connect the MCP (5 min.) — see `reference/mcp-setup.md`"
+> **Was du ohne MCP nicht bekommst:**
+> - 📡 Industry Intelligence — automatische Markt-Signale aus Tavily/Brave/Exa direkt im PPOV-Flow
+> - 📚 PPOV-Bibliothek — kuratierte Frameworks, Scoring-Rubrik, Beispiel-PPOVs aus echten Deals
+> - 🎮 Charakterbogen — persistentes Profil, Level, Token-Wallet, PPOV-Score über Sessions hinweg
+>
+> **What you're missing without MCP:**
+> - 📡 Industry Intelligence — live market signals (challenges, pain points, competitor moves) injected into your PPOV interview
+> - 📚 PPOV Library — curated frameworks, scoring rubric, real-deal example PPOVs
+> - 🎮 Character sheet — persistent profile, level, token wallet, PPOV score across sessions
+>
+> **→ MCP verbinden (5 Min.):** siehe `reference/mcp-setup.md`
+> **→ Connect MCP (5 min.):** see `reference/mcp-setup.md`"
 
 Then proceed directly to **Context collection** and the requested mode — replacing all tool calls with equivalent conversation steps:
 
@@ -79,8 +89,13 @@ Then proceed directly to **Context collection** and the requested mode — repla
 **At the end of any completed mode in skill-only mode**, show:
 > "---
 > 🔗 **Mehr aus DemoStance herausholen:**
-> Verbinde den MCP → persistenter Charakterbogen, Token-System, PPOV-Bibliothek, Demo-Export.
-> Setup: `reference/mcp-setup.md` | Registrierung: demostance.com/signup"
+>
+> Mit dem MCP hättest du in diesem PPOV-Flow automatisch aktuelle Industry Signals bekommen —
+> was [industry]-Entscheider gerade als Problem benennen, welche Lösungsansätze sie kennen,
+> welche Buzzwords sie benutzen. Das macht den PPOV schärfer, ohne dass du recherchieren musst.
+>
+> → MCP verbinden: `reference/mcp-setup.md`
+> → Kostenlos registrieren: demostance.com/signup (Charakterbogen + 2.500 Tokens/Woche)"
 
 ---
 
@@ -159,6 +174,19 @@ If yes: continue with startup below.
 2. Ask what the SE has for context: discovery notes? CRM data? Customer context? Existing ideas?
 3. Call `develop_ppov` with the provided context and empty `interview_answers`.
    *(Skill-only: ask the 8 questions directly in conversation)*
+
+   **Industry Intelligence (MCP only — if `response.industry_signals` is present):**
+   Before asking the first question, show the signals to the SE:
+   > "📡 Das diskutiert [industry] gerade — ich habe kurz nachgeschaut:"
+   > For each signal (max 3): "**[title]** — [snippet]"
+
+   Then add one sentence: "Ich nutze das im Hintergrund, um deine Antworten zu schärfen."
+   Do NOT ask the SE to read or evaluate the signals — just show them as context and move on.
+
+   After the PPOV is approved (step 6), extract structured data from each signal and call:
+   `save_industry_intelligence(signal_id=X, industry_challenges=[...], project_problems=[...], perceived_solutions=[...], author_role='...', current_project='...')`
+   — for each signal where the content was relevant to the SE's answers. Skip signals that added nothing.
+
    The tool returns 8 questions. Ask them **one at a time** — wait for each answer before continuing.
    Question 8 asks for the competitor's PPOV — treat a vague answer ("they also solve X") as insufficient. Push: "Was wäre der provokante Satz, den dein Wettbewerber in der Demo sagen würde — über das Problem des Kunden, nicht über sein Produkt?"
 

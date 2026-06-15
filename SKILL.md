@@ -1,30 +1,17 @@
 ---
 name: demostance
 description: >
-  B2B SaaS demo psychology coach for Sales Engineers (SE/AE/Presales) and software sales teams.
-  Build opinionated software demos with a Provocative Point of View (PPOV) that win deals and
-  close sales opportunities. Use when pitching SaaS software, preparing a demo for a customer,
-  scoring a demo script, structuring a demo flow, or coaching SEs on opportunity-driven selling.
-  Activate with /demostance [analyze|build|check].
-  Also auto-activates when the SE says things like:
-  DE: "Wie ist diese Demo?", "Feedback zu meinem Skript?",
-  "Was würdest du an meiner Demo ändern?", "Ist meine Demo zu lang?", "Zeige ich zu viele Features?",
-  "Wie kommt das beim CFO an?", "Was denkt der Kunde wenn er das sieht?",
-  "Ist das relevant für [Branche]?", "Welche Einwände könnte das auslösen?",
-  "Ich habe morgen einen Demo-Termin", "Ich muss eine Demo für [Kunde] vorbereiten",
-  "Wie fange ich die Demo an?", "Warum sollte der Kunde das kaufen?",
-  "Wie mache ich die Demo überzeugender?", "Ich brauche eine starke These für die Demo",
+  Use when a Sales Engineer, AE, or presales pro in B2B SaaS needs to build, score, or check
+  a software demo, sales pitch, or customer presentation. Also auto-activates on:
+  "Wie ist diese Demo?", "Feedback zu meinem Skript?", "Welche Szenen brauche ich?",
+  "Ist meine Demo zu lang?", "Ich habe morgen einen Demo-Termin",
+  "Ich brauche eine starke These für die Demo", "Ich baue gerade eine Demo",
   "Schreib einen Post über diese Demo", "Ich habe gerade einen Deal geclosed",
-  "Ich baue gerade eine Demo", "Welche Szenen brauche ich?", "Baue mir eine Demo-App für [Kunde]".
-  EN: "How does this demo look?", "Give me feedback on my script?",
-  "What would you change in my demo?", "Is my demo too long?", "Am I showing too many features?",
-  "How does this land with the CFO?", "What does the customer think when they see this?",
-  "Is this relevant for [industry]?", "What objections could this trigger?",
-  "I have a demo tomorrow", "I need to prep a demo for [customer]",
-  "How do I start the demo?", "Why should the customer buy this?",
-  "How do I make the demo more compelling?", "I need a strong thesis for the demo",
-  "Write a post about this demo", "I just closed a deal",
-  "I'm building a demo", "What scenes do I need?", "Build me a demo app for [customer]".
+  "Baue mir eine Demo-App für [Kunde]",
+  "How does this demo look?", "Give me feedback on my script",
+  "I have a demo tomorrow", "I need a strong thesis for the demo",
+  "I'm building a demo", "What scenes do I need?", "I just closed a deal",
+  "Build me a demo app for [customer]", "How do I make the demo more compelling?".
 ---
 
 # DemoStance — Demo Psychology Coach
@@ -39,9 +26,11 @@ Generic is the enemy. Every demo needs a **villain** (the status quo), a **hero*
 
 `/demostance [analyze|build|check]`
 
-- `/demostance analyze` — SE has existing material (script, screenshot, PPT, transcript)
-- `/demostance build` — SE starts from discovery notes or ideas (also works before a Vibe-Coding session — produces a master prompt)
-- `/demostance check` — Quick traffic-light check on a draft outline or built demo
+| Mode | When to use | Key input needed |
+|---|---|---|
+| `analyze` | Existing demo, script, slides, or transcript | Material to score |
+| `build` | Starting from scratch or discovery notes | Customer context / notes |
+| `check` | Draft outline ready for a fast review | Outline + estimated duration |
 
 ---
 

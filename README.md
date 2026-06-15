@@ -1,6 +1,8 @@
 # DemoStance Skill
 
-Demo psychology coach for Sales Engineers. Turns generic feature tours into opinionated demos built around a Provocative Point of View (PPOV).
+Demo psychology coach for Sales Engineers (SE/AE/Presales) in B2B SaaS software sales. Turns generic feature tours into opinionated demos built around a Provocative Point of View (PPOV) that win deals and close opportunities.
+
+**Tags:** `sales engineer` · `demo` · `SaaS` · `B2B` · `sales` · `pitch` · `software demo` · `opportunity` · `deal` · `PPOV` · `presales` · `demo script` · `SE coaching` · `AE` · `pipeline`
 
 Works **with or without** the DemoStance MCP — skill-only mode gives you full PPOV coaching through conversation; MCP adds persistence, gamification, and a character sheet.
 

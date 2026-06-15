@@ -1,7 +1,11 @@
 ---
 name: demostance
 description: >
-  Demo psychology coach for Sales Engineers. Activate with /demostance [analyze|build|check].
+  B2B SaaS demo psychology coach for Sales Engineers (SE/AE/Presales) and software sales teams.
+  Build opinionated software demos with a Provocative Point of View (PPOV) that win deals and
+  close sales opportunities. Use when pitching SaaS software, preparing a demo for a customer,
+  scoring a demo script, structuring a demo flow, or coaching SEs on opportunity-driven selling.
+  Activate with /demostance [analyze|build|check].
   Also auto-activates when the SE says things like:
   DE: "Wie ist diese Demo?", "Feedback zu meinem Skript?",
   "Was würdest du an meiner Demo ändern?", "Ist meine Demo zu lang?", "Zeige ich zu viele Features?",
